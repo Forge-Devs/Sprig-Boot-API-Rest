@@ -1,24 +1,26 @@
-package com.seuprojeto.models;
+package com.turstarmodels;
 
-import javax.persistence.*;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "pontos_turisticos")
 public class PontoTuristico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
+    private Long  
+    id;
     private String nome;
+}
 
-    @Column(columnDefinition = "TEXT")
-    private String descricao;
+package com.seuprojeto.repositories;
 
-    @Column(nullable = false)
-    private String endereco;
+import com.seuprojeto.models.PontoTuristico;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    @OneToMany(mappedBy = "pontoTuristico")
-    private List<Comentario> comentarios;
+public interface PontoTuristicoRepository extends JpaRepository<com.turstar.repositories.PontoTuristico, Long> {
+    List<com.turstar.repositories.PontoTuristico> findByNomeContaining(String nome);
 }
